@@ -1,0 +1,58 @@
+[build-system]
+requires = ["hatchling>=1.26"]
+build-backend = "hatchling.build"
+
+[project]
+name = "before-thinking"
+version = "0.1.0"
+description = "Measure readout, branching, and causal commitment in reasoning models"
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+  "numpy>=2.0,<3",
+  "pandas>=2.2,<4",
+  "pyarrow>=18,<24",
+  "pydantic>=2.9,<3",
+  "pyyaml>=6.0,<7",
+  "scikit-learn>=1.5,<2",
+  "scipy>=1.14,<2",
+  "typer>=0.15,<1",
+]
+
+[project.optional-dependencies]
+gpu = [
+  "accelerate>=1.2,<2",
+  "datasets>=3.2,<5",
+  "huggingface-hub>=0.36,<1",
+  "safetensors>=0.5,<1",
+  "torch>=2.7,<3",
+  "transformers>=4.51,<5",
+]
+quant = ["bitsandbytes>=0.45,<1"]
+dev = [
+  "mypy>=1.14,<2",
+  "pytest>=8.3,<10",
+  "ruff>=0.9,<1",
+]
+
+[project.scripts]
+before-thinking = "before_thinking.cli:app"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/before_thinking"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "RUF"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+packages = ["before_thinking"]

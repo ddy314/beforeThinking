@@ -1,0 +1,29 @@
+schema_version: 1
+model:
+  id: Qwen/Qwen3-1.7B
+  revision: 70d244cc86ccca08cf5af4e1e306ecf908b1ad5e
+  dtype: bfloat16
+  device: cuda
+  attention_implementation: eager
+  enable_thinking: true
+generation:
+  temperature: 0.6
+  top_p: 0.95
+  top_k: 20
+  do_sample: true
+  max_new_tokens: 2048
+  base_rollouts_per_item: 2
+  branches_per_prefix: 2
+checkpoints:
+  normalized: [0.0, 0.10, 0.25, 0.50, 0.75, 0.90]
+  include_first_thinking_token: true
+hidden_states:
+  relative_layer_depths: [0.25, 0.50, 0.75, 1.0]
+statistics:
+  branch_modal_mass_threshold: 0.80
+  wilson_confidence: 0.95
+  minimum_persistent_checkpoints: 2
+  bootstrap_resamples: 1000
+smoke:
+  items_per_task: 8
+  tasks: [arc_challenge, gsm8k]
